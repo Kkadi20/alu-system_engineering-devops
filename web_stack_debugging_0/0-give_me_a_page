@@ -3,6 +3,7 @@
 
 # Install Apache if it's not installed
 if ! command -v apache2 > /dev/null; then
+    echo "Installing Apache..."
     sudo apt update
     sudo apt install -y apache2
 fi
@@ -14,7 +15,13 @@ sudo systemctl enable apache2
 # Create index.html with "Hello Holberton"
 echo "Hello Holberton" | sudo tee /var/www/html/index.html > /dev/null
 
+# Debugging: Check Apache's status
+echo "Checking Apache status..."
+sudo systemctl status apache2
+
 # Check if Apache is running and print the required message
 if sudo systemctl is-active --quiet apache2; then
     echo "apache2 is running"
+else
+    echo "apache2 is not running"
 fi
