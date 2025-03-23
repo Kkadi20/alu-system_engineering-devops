@@ -1,13 +1,7 @@
 #!/usr/bin/env bash
 
-# Start Apache (silent)
+# Start Apache silently (no output)
 service apache2 start > /dev/null 2>&1
 
-# Check if Apache is running, but do not output the status
-if ! service apache2 status > /dev/null 2>&1; then
-    echo "Apache failed to start"
-    exit 1
-fi
-
-# Ensure "Hello Holberton" is served
+# Create the index.html file with the required text
 echo "Hello Holberton" > /var/www/html/index.html
