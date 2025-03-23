@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
-
-# Start Apache silently (no output)
-service apache2 start > /dev/null 2>&1
-
-# Create the index.html file with the required text
-echo "Hello Holberton" > /var/www/html/index.html
+# you just have to restart apache
+sudo service apache2 restart
