@@ -1,30 +1,8 @@
 #!/usr/bin/env bash
-# This script configures Nginx to run as the 'nginx' user and listen on port 8080.
-
-# Ensure Nginx is installed
-if ! command -v nginx &> /dev/null; then
-    echo "Nginx is not installed. Please install it first."
-    exit 1
-fi
-
-# Modify the Nginx main configuration file to run as nginx user
-sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
-
-# Change the Nginx server block to listen on port 8080
-if grep -q "listen 80;" /etc/nginx/sites-enabled/default; then
-    sed -i 's/listen 80;/listen 8080;/' /etc/nginx/sites-enabled/default
-elif grep -q "listen 80;" /etc/nginx/nginx.conf; then
-    sed -i 's/listen 80;/listen 8080;/' /etc/nginx/nginx.conf
-else
-    echo "No listen directive found for port 80. Skipping change."
-fi
-
-# Restart Nginx to apply changes
-systemctl restart nginx
-
-# Verify changes
-echo "Verifying Nginx user..."
-ps aux | grep '[n]ginx'
-
-echo "Checking if Nginx is listening on port 8080..."
-nc -z 0 8080 && echo "Nginx is running on port 8080" || echo "Nginx is NOT running on port 8080"
+#comments
+sudo chmod -R 755 /etc/nginx/
+sudo pkill -9 apache2
+sudo sed -i 's/8080/8081/g' /etc/apache2/ports.conf
+sudo service apache2 restart
+su nginx -c "sed -i 's/80/8080/g' /etc/nginx/sites-enabled/default"
+su nginx service nginx restart
